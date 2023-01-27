@@ -1,38 +1,50 @@
-import Currency from './3-currency.js'
+import Currency from './3-currency';
 
 export default class Pricing {
-    constructor(amount, currency) {
-        if (typeof amount !== 'number')
-            throw new TypeError("Amount must be a number");
-        if (!currency instanceof Currency)
-            throw new TypeError("Currency must be an instance of Currency class");
-        this._amount = amount;
-        this._currency = currency
+  constructor(amount, currency) {
+    if (typeof amount !== 'number') {
+      throw new TypeError('Amount must be a number');
     }
-    get amount() {
-        return this._amount;
+    if (!(currency instanceof Currency)) {
+      throw new TypeError('Currency must be an instance of Currency class');
     }
-    get currency() {
-        return this._currency;
+    this._amount = amount;
+    this._currency = currency;
+  }
+
+  get amount() {
+    return this._amount;
+  }
+
+  get currency() {
+    return this._currency;
+  }
+
+  set amount(amount) {
+    if (typeof amount !== 'number') {
+      throw new TypeError('Amount must be a number');
     }
-    set amount(amount) {
-        if (typeof amount !== 'number')
-            throw new TypeError("Amount must be a number");
-        this._amount = amount;
+    this._amount = amount;
+  }
+
+  set currency(currency) {
+    if (!(currency instanceof Currency)) {
+      throw new TypeError('Currency must be an instance of Currency class');
     }
-    set currency(currency) {
-        if (!currency instanceof Currency)
-            throw new TypeError("Currency must be an instance of Currency class");
-        this._currency = currency;
+    this._currency = currency;
+  }
+
+  displayFullPrice() {
+    return `${this._amount} ${this._currency.name} (${this._currency.code})`;
+  }
+
+  static convertPrice(amount, conversionRate) {
+    if (typeof amount !== 'number') {
+      throw new TypeError('Amount must be a number');
     }
-    displayFullPrice() {
-        return `${this._amount} ${this._currency.name} (${this._currency.code})`;
+    if (typeof conversionRate !== 'number') {
+      throw new TypeError('ConversionRate must be a number');
     }
-    static convertPrice(amount, conversionRate) {
-        if (typeof amount !== 'number')
-            throw new TypeError("Amount must be a number");
-        if (typeof conversionRate !== 'number')
-            throw new TypeError("ConversionRate must be a number");
-        return amount * conversionRate;
-    }
+    return amount * conversionRate;
+  }
 }
