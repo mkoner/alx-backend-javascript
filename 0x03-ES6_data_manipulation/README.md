@@ -1,7 +1,7 @@
-#Directory for 0x03. ES6 data manipulation
+# Directory for 0x03. ES6 data manipulation
 
-##Arrays
+## Arrays
 
-##Sets
+## Sets
 
-##Maps
+## Maps
