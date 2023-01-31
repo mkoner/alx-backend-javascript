@@ -1,9 +1,10 @@
 export default function cleanSet(set, startString) {
-  if (typeof (startString) !== 'string') return null;
+  if (!set || !startString || !(set instanceof Set) || typeof startString !== 'string') {
+    return '';
+  }
   const strings = [];
   for (const item of set) {
-    if (typeof (item) !== 'string') return null;
-    if (item.startsWith(startString) && startString.length > 0) {
+    if (typeof item === 'string' && item.startsWith(startString) && startString.length > 0) {
       strings.push(item.slice(startString.length, item.length));
     }
   }
