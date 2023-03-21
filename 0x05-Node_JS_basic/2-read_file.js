@@ -1,16 +1,5 @@
 const fs = require('fs');
 
-const printStudents = (students) => {
-  students.forEach((student) => {
-    if (student !== students[`${students.length - 1}`]) {
-      process.stdout.write(`${student}, `);
-    } else {
-      process.stdout.write(`${student}`);
-    }
-  });
-  process.stdout.write('\n');
-};
-
 const countStudents = (path) => {
   const fields = {};
 
@@ -29,17 +18,16 @@ const countStudents = (path) => {
   students.forEach((student) => {
     const field = student.split(',')[3].trim();
     if (field in fields) {
-      fields[`${field}`].push(student.split(',')[0]);
+      fields[`${field}`] += `${student.split(',')[0]}, `;
     } else {
-      fields[`${field}`] = [];
-      fields[`${field}`].push(student.split(',')[0]);
+      fields[`${field}`] = '';
+      fields[`${field}`] += `${student.split(',')[0]}, `;
     }
   });
 
   for (const field in fields) {
     if (fields[`${field}`]) {
-      process.stdout.write(`Number of students in ${field}: ${fields[`${field}`].length}. List: `);
-      printStudents(fields[`${field}`]);
+      console.log(`Number of students in ${field}: ${fields[`${field}`].length}. List: ${fields[`${field}`].slice(0, -2)}`);
     }
   }
 };
