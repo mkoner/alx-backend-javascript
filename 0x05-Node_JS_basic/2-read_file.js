@@ -16,7 +16,7 @@ const countStudents = (path) => {
   students.shift();
   console.log(`Number of students: ${students.length}`);
   students.forEach((student) => {
-    if (student.length > 2) {
+    if (student.split(',').length === 4) {
       const field = student.split(',')[3].trim();
       if (field in fields) {
         fields[`${field}`] += `${student.split(',')[0]}, `;
@@ -29,7 +29,7 @@ const countStudents = (path) => {
 
   for (const field in fields) {
     if (fields[`${field}`]) {
-      console.log(`Number of students in ${field}: ${fields[`${field}`].length}. List: ${fields[`${field}`].slice(0, -2)}`);
+      console.log(`Number of students in ${field}: ${fields[`${field}`].slice(0, -2).split(',').length}. List: ${fields[`${field}`].slice(0, -2)}`);
     }
   }
 };
