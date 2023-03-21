@@ -10,7 +10,6 @@ const countStudents = (path) => new Promise((resolve, reject) => {
       reject(new Error('Cannot load the database'));
     }
     if (data) {
-      console.log('This is the list of our students');
       const students = data.split('\n');
       students.shift();
       students.forEach((student) => {
