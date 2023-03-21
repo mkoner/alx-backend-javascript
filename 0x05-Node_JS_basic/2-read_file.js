@@ -16,12 +16,14 @@ const countStudents = (path) => {
   students.shift();
   console.log(`Number of students: ${students.length}`);
   students.forEach((student) => {
-    const field = student.split(',')[3].trim();
-    if (field in fields) {
-      fields[`${field}`] += `${student.split(',')[0]}, `;
-    } else {
-      fields[`${field}`] = '';
-      fields[`${field}`] += `${student.split(',')[0]}, `;
+    if (student.length > 2) {
+      const field = student.split(',')[3].trim();
+      if (field in fields) {
+        fields[`${field}`] += `${student.split(',')[0]}, `;
+      } else {
+        fields[`${field}`] = '';
+        fields[`${field}`] += `${student.split(',')[0]}, `;
+      }
     }
   });
 
