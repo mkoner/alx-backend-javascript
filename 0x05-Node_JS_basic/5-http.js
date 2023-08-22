@@ -33,8 +33,8 @@ const countStudents = (path) => new Promise((resolve, reject) => {
 const app = http.createServer(async (req, res) => {
   const db = process.argv[2] ? process.argv[2] : '';
   if (req.url === '/') {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
+    //res.statusCode = 200;
+    //res.setHeader('Content-Type', 'text/plain');
     res.end('Hello Holberton School!');
   }
   if (req.url === '/students') {
