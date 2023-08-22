@@ -19,8 +19,8 @@ const app = http.createServer((req, res) => {
     students(process.argv[2]).then((data) => {
       res.write('This is the list of our students\n');
       res.write(`Number of students: ${data.total}\n`);
-      res.write(`Number of students in CS: ${data.fields.CS.length}. List: ${data.fields.CS}\n`);
-      res.write(`Number of students in SWE: ${data.fields.SWE.length}. List: ${data.fields.SWE}`);
+      res.write(`Number of students in CS: ${data.fields.CS.split(',').length}. List: ${data.fields.CS}\n`);
+      res.write(`Number of students in SWE: ${data.fields.SWE.split(',').length}. List: ${data.fields.SWE}`);
       res.end();
     }).catch((err) => res.end(err.message));
   }
