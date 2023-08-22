@@ -42,7 +42,7 @@ const app = http.createServer(async (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     const data = await countStudents(db);
-    content += 'This is the list of our students\n'
+    content += 'This is the list of our students\n';
     content += `Number of students: ${data.total} \n`;
     for (const field in data.fields) {
       if (data.fields[`${field}`]) {
