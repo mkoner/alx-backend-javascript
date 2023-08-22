@@ -1,33 +1,9 @@
 const express = require('express');
 const fs = require('fs');
+const students = require('./3-read_file_async');
 
 const app = express();
 const port = 1245;
-
-const countStudents = (path) => new Promise((resolve, reject) => {
-  fs.readFile(path, 'utf-8', (err, data) => {
-    const fields = {};
-    if (err) {
-      reject(new Error('Cannot load the database'));
-    }
-    if (data) {
-      const students = data.split('\n');
-      students.shift();
-      students.forEach((student) => {
-        if (student.split(',').length === 4) {
-          const field = student.split(',')[3].trim();
-          if (field in fields) {
-            fields[`${field}`] += `${student.split(',')[0]}, `;
-          } else {
-            fields[`${field}`] = '';
-            fields[`${field}`] += `${student.split(',')[0]}, `;
-          }
-        }
-      });
-      resolve({ students, fields });
-    }
-  });
-});
 
 app.get('/', (req, res) => {
   res.statusCode = 200;
@@ -37,15 +13,13 @@ app.get('/', (req, res) => {
 app.get('/students', async (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  const data = await countStudents(process.argv[2]);
   res.write('This is the list of our students\n');
-  res.write(`Number of students: ${data.students.length} \n`);
-  for (const field in data.fields) {
-    if (data.fields[`${field}`]) {
-      res.write(`Number of students in ${field}: ${data.fields[`${field}`].slice(0, -2).split(',').length}. List: ${data.fields[`${field}`].slice(0, -2)} \n`);
-    }
-  }
-  res.end();
+  students(process.argv[2]).then((data) => {
+    res.write(`Number of students: ${data.total}\n`);
+    res.write(`Number of students in CS: ${data.fields.CS.split(',').length}. List: ${data.fields.CS}\n`);
+    res.write(`Number of students in SWE: ${data.fields.SWE.split(',').length}. List: ${data.fields.SWE}`);
+    res.end();
+  }).catch((err) => res.end(err.message));
 });
 
 app.listen(port, () => {
