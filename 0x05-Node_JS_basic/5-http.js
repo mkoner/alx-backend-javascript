@@ -10,8 +10,8 @@ const app = http.createServer(async (req, res) => {
   if (req.url === '/') {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    const data = await students(process.argv[2]);
     res.write('This is the list of our students\n');
+    const data = await students(process.argv[2]);
     res.write(`Number of students: ${data.total}\n`);
     res.write(`Number of students in CS: ${data.fields.CS.split(',').length}. List: ${data.fields.CS}\n`);
     res.write(`Number of students in SWE: ${data.fields.SWE.split(',').length}. List: ${data.fields.SWE}`);
