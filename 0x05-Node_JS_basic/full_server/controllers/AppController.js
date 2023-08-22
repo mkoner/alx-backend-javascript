@@ -1,6 +1,5 @@
 export default class AppController {
   static getHomepage(request, response) {
-    response.write('Hello Holberton School!');
-    response.sendStatus(200);
+    response.send(200, 'Hello Holberton School!');
   }
 }
