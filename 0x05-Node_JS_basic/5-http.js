@@ -11,16 +11,12 @@ const app = http.createServer(async (req, res) => {
   if (req.url === '/') {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    let content = '';
     const data = await students(db);
-    content += 'This is the list of our students\n';
-    content += `Number of students: ${data.total} \n`;
-    for (const field in data.fields) {
-      if (data.fields[`${field}`]) {
-        content += `Number of students in ${field}: ${data.fields[`${field}`].split(',').length}. List: ${data.fields[`${field}`]} \n`;
-      }
-    }
-    res.end(content.trim());
+    res.write('This is the list of our students\n');
+    res.write(`Number of students: ${data.total}\n`);
+    res.write(`Number of students in CS: ${data.fields.CS.length}. List: ${data.fields.CS}\n`);
+    res.write(`Number of students in SWE: ${data.fields.SWE.length}. List: ${data.fields.SWE}`);
+    res.end();
   }
 });
 
