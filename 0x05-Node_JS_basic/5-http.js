@@ -44,7 +44,7 @@ const app = http.createServer(async (req, res) => {
     res.write(`Number of students: ${data.total} \n`);
     for (const field in data.fields) {
       if (data.fields[`${field}`]) {
-        res.write(`Number of students in ${field}: ${data.fields[`${field}`].split(',').length}. List: ${data.fields[`${field}`]}`);
+        res.write(`Number of students in ${field}: ${data.fields[`${field}`].split(',').length}. List: ${data.fields[`${field}`]} \n`);
       }
     }
     res.end();
