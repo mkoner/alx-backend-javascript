@@ -19,17 +19,16 @@ const countStudents = (path) => {
     if (student.split(',').length === 4) {
       const field = student.split(',')[3].trim();
       if (field in fields) {
-        fields[`${field}`] += `${student.split(',')[0]}, `;
+        fields[`${field}`] += `, ${student.split(',')[0]}`;
       } else {
         fields[`${field}`] = '';
-        fields[`${field}`] += `${student.split(',')[0]}, `;
+        fields[`${field}`] += `${student.split(',')[0]}`;
       }
     }
   });
-
   for (const field in fields) {
     if (fields[`${field}`]) {
-      console.log(`Number of students in ${field}: ${fields[`${field}`].slice(0, -2).split(',').length}. List: ${fields[`${field}`].slice(0, -2)}`);
+      console.log(`Number of students in ${field}: ${fields[`${field}`].split(',').length}. List: ${fields[`${field}`]}`);
     }
   }
 };
