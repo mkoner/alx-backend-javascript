@@ -6,6 +6,7 @@ const port = 1245;
 const countStudents = (path) => new Promise((resolve, reject) => {
   fs.readFile(path, 'utf-8', (err, data) => {
     const fields = {};
+    let total = 0;
     if (err) {
       reject(new Error('Cannot load the database'));
     }
@@ -15,15 +16,16 @@ const countStudents = (path) => new Promise((resolve, reject) => {
       students.forEach((student) => {
         if (student.split(',').length === 4) {
           const field = student.split(',')[3].trim();
+          total += 1;
           if (field in fields) {
-            fields[`${field}`] += `${student.split(',')[0]}, `;
+            fields[`${field}`] += `, ${student.split(',')[0]}`;
           } else {
             fields[`${field}`] = '';
-            fields[`${field}`] += `${student.split(',')[0]}, `;
+            fields[`${field}`] += `${student.split(',')[0]}`;
           }
         }
       });
-      resolve({ students, fields });
+      resolve({ total, fields });
     }
   });
 });
@@ -39,10 +41,10 @@ const app = http.createServer(async (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     const data = await countStudents(process.argv[2]);
     res.write('This is the list of our students\n');
-    res.write(`Number of students: ${data.students.length} \n`);
+    res.write(`Number of students: ${data.total} \n`);
     for (const field in data.fields) {
       if (data.fields[`${field}`]) {
-        res.write(`Number of students in ${field}: ${data.fields[`${field}`].slice(0, -2).split(',').length}. List: ${data.fields[`${field}`].slice(0, -2)} \n`);
+        res.write(`Number of students in ${field}: ${data.fields[`${field}`].split(',').length}. List: ${data.fields[`${field}`]}`);
       }
     }
     res.end();
@@ -50,7 +52,7 @@ const app = http.createServer(async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running at port ${port}/`);
+  console.log(`Server running at port ${port}`);
 });
 
 module.exports = app;
