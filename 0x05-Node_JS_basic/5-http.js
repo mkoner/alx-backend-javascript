@@ -31,6 +31,7 @@ const countStudents = (path) => new Promise((resolve, reject) => {
 });
 
 const app = http.createServer(async (req, res) => {
+  const db = process.argv[2] ? process.argv[2] : '';
   if (req.url === '/') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
@@ -39,7 +40,7 @@ const app = http.createServer(async (req, res) => {
   if (req.url === '/students') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    const data = await countStudents(process.argv[2]);
+    const data = await countStudents(db);
     res.write('This is the list of our students\n');
     res.write(`Number of students: ${data.total} \n`);
     for (const field in data.fields) {
