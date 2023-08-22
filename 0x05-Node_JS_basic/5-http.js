@@ -33,22 +33,23 @@ const countStudents = (path) => new Promise((resolve, reject) => {
 const app = http.createServer(async (req, res) => {
   const db = process.argv[2] ? process.argv[2] : '';
   if (req.url === '/') {
-    //res.statusCode = 200;
-    //res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
     res.end('Hello Holberton School!');
   }
   if (req.url === '/students') {
+    let content = '';
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     const data = await countStudents(db);
-    res.write('This is the list of our students\n');
-    res.write(`Number of students: ${data.total} \n`);
+    content += 'This is the list of our students\n'
+    content += `Number of students: ${data.total} \n`;
     for (const field in data.fields) {
       if (data.fields[`${field}`]) {
-        res.write(`Number of students in ${field}: ${data.fields[`${field}`].split(',').length}. List: ${data.fields[`${field}`]} \n`);
+        content += `Number of students in ${field}: ${data.fields[`${field}`].split(',').length}. List: ${data.fields[`${field}`]} \n`;
       }
     }
-    res.end();
+    res.end(content.trim());
   }
 });
 
