@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const students = require('./3-read_file_async');
 
 const app = express();
