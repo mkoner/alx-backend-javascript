@@ -9,9 +9,9 @@ class StudentsController {
       response.write(`Number of students in CS: ${data.CS.length}. List: ${data.CS.join(', ')}\n`);
       response.write(`Number of students in SWE: ${data.SWE.length}. List: ${data.SWE.join(', ')}\n`);
       response.end();
-    }).catch((err) => res.write(err.message))
+    }).catch((err) => response.write(err.message))
       .finally(() => {
-        res.end();
+        response.end();
       });
   }
 
