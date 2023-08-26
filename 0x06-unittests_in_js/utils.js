@@ -1,5 +1,6 @@
 const Utils = {
     calculateNumber(type, a, b){
+        console.log("utils called");
         switch(type) {
             case 'SUM':
                 return Math.round(a) + Math.round(b);
