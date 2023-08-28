@@ -1,6 +1,5 @@
 const { expect } = require('chai');
 const request = require('request');
-const { response } = require('./api');
 
 describe('Index page', () => {
     const API_URL = 'http://localhost:7865';
@@ -77,5 +76,4 @@ describe('/available_payments', () => {
               done();
         });
     });
-
 });
