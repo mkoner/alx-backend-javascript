@@ -43,3 +43,22 @@ describe('The cart page', () => {
         });
     });
 });
+
+describe('login', () => {
+    const API_URL = 'http://localhost:7865';
+    it('Test login endpoint', (done) => {
+        const userName = 'Ali';
+        const options = {
+            url: `${API_URL}/cart/${id}`,
+            method: 'POST',
+            json: {
+                userName,
+            },
+        };
+        request(options, (err, response, body) => {
+            expect(response.statusCode).to.equal(200);
+            expect(body).to.equal(`Welcome ${userName}`);
+            done();
+        });
+    });
+});
