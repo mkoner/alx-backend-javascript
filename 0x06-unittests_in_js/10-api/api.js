@@ -7,6 +7,10 @@ app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
+app.get('/cart/:id(\\d+)', (req, res) => {
+  res.send(`Payment methods for cart ${req.params.id}`);
+});
+
 app.get('/available_payments', (req, res) => {
   res.send({
     payment_methods: {
@@ -18,14 +22,6 @@ app.get('/available_payments', (req, res) => {
 
 app.post('/login', (req, res) => {
   res.send(`Welcome ${req.body.userName}`);
-});
-
-app.get('/cart/:id', (req, res) => {
-  id = req.params.id;
-  if (isNaN(id)) {
-    res.sendStatus(404);
-  }
-  res.send(`Payment methods for cart ${id}`);
 });
 
 app.listen(port, () => {

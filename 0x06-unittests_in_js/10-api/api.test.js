@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const request = require('request');
+const { response } = require('./api');
 
 describe('Index page', () => {
     const API_URL = 'http://localhost:7865';
@@ -44,12 +45,12 @@ describe('The cart page', () => {
     });
 });
 
-describe('login', () => {
+describe('/login endpoint', () => {
     const API_URL = 'http://localhost:7865';
     it('Test login endpoint', (done) => {
         const userName = 'Ali';
         const options = {
-            url: `${API_URL}/cart/${id}`,
+            url: `${API_URL}/login`,
             method: 'POST',
             json: {
                 userName,
@@ -61,4 +62,20 @@ describe('login', () => {
             done();
         });
     });
+});
+
+describe('/available_payments', () => {
+    const API_URL = 'http://localhost:7865';
+    it('Testing available paiement', (done) => {
+        const options = {
+            url: `${API_URL}/available_payments`,
+            method: 'GET',
+        };
+        request(options, (err, response, body) => {
+            expect(response.statusCode).to.equal(200);
+            expect(body).to.equal('{"payment_methods":{"credit_cards":true,"paypal":false}}');
+              done();
+        });
+    });
+
 });
